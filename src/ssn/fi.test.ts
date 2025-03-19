@@ -3,98 +3,94 @@ import { isValidFinnishSSN } from './fi';
 
 describe('Finish ssn validation', () => {
   it('Should fail when given empty String', () => {
-    expect(isValidFinnishSSN('')).to.equal(false);
+    expect(isValidFinnishSSN('')).toBe(false);
   });
   it('Should fail when given birthdate with month out of bounds', () => {
-    expect(isValidFinnishSSN('301398-1233')).to.equal(false);
+    expect(isValidFinnishSSN('301398-1233')).toBe(false);
   });
 
   it('Should fail when given birthdate with date out of bounds in January', () => {
-    expect(isValidFinnishSSN('320198-123P')).to.equal(false);
+    expect(isValidFinnishSSN('320198-123P')).toBe(false);
   });
 
   it('Should fail when given birthdate with date out of bounds in February, non leap year', () => {
-    expect(isValidFinnishSSN('290299-123U')).to.equal(false);
+    expect(isValidFinnishSSN('290299-123U')).toBe(false);
   });
 
   it('Should fail when given birth date with date out of bounds in February, a leap year', () => {
-    expect(isValidFinnishSSN('300204-123Y')).to.equal(false);
+    expect(isValidFinnishSSN('300204-123Y')).toBe(false);
   });
 
   it('Should fail when given birth date with alphabets', () => {
-    expect(isValidFinnishSSN('0101AA-123A')).to.equal(false);
+    expect(isValidFinnishSSN('0101AA-123A')).toBe(false);
   });
 
   it('Should fail when given invalid separator char for year 1900', () => {
     const invalidSeparatorChars = 'ABCDEFGHIJKLMNOPQRST1234567890'.split('');
     invalidSeparatorChars.forEach((invalidChar) => {
-      expect(isValidFinnishSSN('010195' + invalidChar + '433X')).to.equal(
-        false,
-      );
+      expect(isValidFinnishSSN('010195' + invalidChar + '433X')).toBe(false);
       expect(
         isValidFinnishSSN('010195' + invalidChar.toLowerCase() + '433X'),
-      ).to.equal(false);
+      ).toBe(false);
     });
   });
 
   it('Should fail when given invalid separator char for year 2000', () => {
     const invalidSeparatorChars = 'GHIJKLMNOPQRSTUVWXYZ1234567890'.split('');
     invalidSeparatorChars.forEach((invalidChar) => {
-      expect(isValidFinnishSSN('010103' + invalidChar + '433X')).to.equal(
-        false,
-      );
+      expect(isValidFinnishSSN('010103' + invalidChar + '433X')).toBe(false);
       expect(
         isValidFinnishSSN('010103' + invalidChar.toLowerCase() + '433X'),
-      ).to.equal(false);
+      ).toBe(false);
     });
   });
 
   it('Should fail when given too long date', () => {
-    expect(isValidFinnishSSN('01011995+433X')).to.equal(false);
+    expect(isValidFinnishSSN('01011995+433X')).toBe(false);
   });
 
   it('Should fail when given too short date', () => {
-    expect(isValidFinnishSSN('01015+433X')).to.equal(false);
+    expect(isValidFinnishSSN('01015+433X')).toBe(false);
   });
 
   it('Should fail when given too long checksum part', () => {
-    expect(isValidFinnishSSN('010195+4433X')).to.equal(false);
+    expect(isValidFinnishSSN('010195+4433X')).toBe(false);
   });
 
   it('Should fail when given too long checksum part', () => {
-    expect(isValidFinnishSSN('010195+33X')).to.equal(false);
+    expect(isValidFinnishSSN('010195+33X')).toBe(false);
   });
 
   it('Should pass when given valid FinnishSSN from 19th century', () => {
-    expect(isValidFinnishSSN('010195+433X')).to.equal(true);
+    expect(isValidFinnishSSN('010195+433X')).toBe(true);
   });
 
   it('Should pass when given valid FinnishSSN from 20th century', () => {
-    expect(isValidFinnishSSN('010197-100P')).to.equal(true);
+    expect(isValidFinnishSSN('010197-100P')).toBe(true);
   });
 
   it('Should pass when given valid FinnishSSN from 21st century', () => {
-    expect(isValidFinnishSSN('010114A173M')).to.equal(true);
+    expect(isValidFinnishSSN('010114A173M')).toBe(true);
   });
 
   it('Should pass when given valid FinnishSSN with leap year, divisible only by 4', () => {
-    expect(isValidFinnishSSN('290296-7808')).to.equal(true);
+    expect(isValidFinnishSSN('290296-7808')).toBe(true);
   });
 
   it('Should fail when given valid FinnishSSN with leap year, divisible by 100 and not by 400', () => {
-    expect(isValidFinnishSSN('290200-101P')).to.equal(false);
+    expect(isValidFinnishSSN('290200-101P')).toBe(false);
   });
 
   it('Should fail when given SSN longer than 11 chars, bogus in the end', () => {
-    expect(isValidFinnishSSN('010114A173M ')).to.equal(false);
+    expect(isValidFinnishSSN('010114A173M ')).toBe(false);
   });
 
   it('Should fail when given SSN longer than 11 chars, bogus in the beginning', () => {
-    expect(isValidFinnishSSN(' 010114A173M')).to.equal(false);
+    expect(isValidFinnishSSN(' 010114A173M')).toBe(false);
   });
 
   it('Should pass when given valid FinnishSSN with leap year, divisible by 100 and by 400', () => {
-    expect(isValidFinnishSSN('290200A248A')).to.equal(true);
+    expect(isValidFinnishSSN('290200A248A')).toBe(true);
   });
 
   it('Should pass when given new intermediate characters', () => {
@@ -123,7 +119,7 @@ describe('Finish ssn validation', () => {
       '010594Y9032',
     ];
     newHypotheticalIndividuals.forEach((individual) => {
-      expect(isValidFinnishSSN(individual)).to.equal(true);
+      expect(isValidFinnishSSN(individual)).toBe(true);
     });
   });
 });
